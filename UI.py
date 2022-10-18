@@ -6,13 +6,9 @@ from PyQt5.uic import loadUi
 class MyQtProgramming(QDialog):
     def __init__(self):
         super(MyQtProgramming, self).__init__()
-        loadUi('a.ui',self)
-        self.setWindowTitle("My Hello Program")
-        self.pushButton.clicked.connect(self.on_pushButton_clicked)
-    
-    @pyqtSlot()
-    def on_pushButton_clicked(self):
-        self.label.setText('Welcome : '+self.lineEdit.text())
+        loadUi('practiceui.ui',self)
+        self.setWindowTitle("Button Show")
+        
         
 app=QApplication(sys.argv)
 widget=MyQtProgramming()
