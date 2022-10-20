@@ -21,7 +21,9 @@ import subprocess
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QApplication, QDialog
 from PyQt5.uic import loadUi
-
+btn1check=0
+btn2check=0
+btn3check=0
 
 
 class MyQtProgramming(QDialog):
@@ -29,23 +31,34 @@ class MyQtProgramming(QDialog):
         super(MyQtProgramming, self).__init__()
         loadUi('practiceui.ui',self)
         self.setWindowTitle("Button Show")
+        
+
+        self.pushButton1.setEnabled(True)
+        self.pushButton2.setEnabled(False)
+        self.pushButton3.setEnabled(False)
+        if(btn1check==1):
+            self.pushButton2.setEnabled(True)
+            self.pushButton1.setEnabled(False)
      # 버튼 클릭시 실행되는 코드 
     @pyqtSlot()
-    def on_pushButton_released(self):
+    def on_pushButton1_released(self):
         self.setWindowTitle("사용자 등록창")
-        
-        subprocess.call("python 얼굴찍기.py", shell=True)
-        subprocess.call("python 02_face_training.py", shell=True)
+        self.pushButton1.setEnabled(False)
+        self.pushButton2.setEnabled(True)
+        btn1check=1
+        #subprocess.call("python 얼굴찍기.py", shell=True)
+        #subprocess.call("python 02_face_training.py", shell=True)
 
     
     # 문열기 버튼 누를 때 이벤트 발생 
-    def on_pushButton_2_released(self):
+    def on_pushButton2_released(self):
         self.setWindowTitle("문 열기창")
-        subprocess.call("python 03_face_recognition.py", shell=True)
+        self.pushButton3.setEnabled(True)
+        #subprocess.call("python 03_face_recognition.py", shell=True)
         
         print("문을 열었습니다")
         
-    def on_pushButton_3_released(self):
+    def on_pushButton3_released(self):
         self.setWindowTitle("침입기록창")
        
     
