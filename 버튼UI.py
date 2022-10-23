@@ -3,8 +3,19 @@
 #다른 py 파일 실행 시키기 
 #https://www.delftstack.com/ko/howto/python/python-run-another-python-script/
 
-#어려웠던점
+#어려웠던점S
+#exec()함수로 다른 py 파일을 실행할때 경로문제가 발생해서 exec를 사용하지 못하고 코드를 그대로 씀. -sub process 함수를 사용하여 해결 
 #loadui()로 만들었던 ui버튼을 누를떄 connect를 안해줘도 자동적으로 연결되는걸 몰라서 한번 눌렀을 때 여러번 실행되는 문제가 발생했었음  - 해결 
+
+#다음 해야할거
+# 터치스크린으로 cam 끄게 하기 , 몇초뒤에 자동으로 꺼지는식으로?
+#  침입 기록을 어떻게 자동화 할것인가?
+# 지라 바꾸기 
+
+
+#자동적으로 이미지 저장 된 거  삭제
+# 
+
 
 import os
 import sys
@@ -15,30 +26,20 @@ import cv2
 import numpy as np
 import pigpio #pigpio library
 from time import sleep #pigpio library
-import sys
-btncheck=0
-btn2check=0
-
-
-
 class MyQtProgramming(QDialog):
     def __init__(self):
         super(MyQtProgramming, self).__init__()
         loadUi('completeUi.ui',self)
         self.setWindowTitle("Button Show")
-        self.pushButton.setEnabled(True)
-        self.pushButton_2.setEnabled(False)       
-        if(btncheck==1):
-            self.pushButton_2.setEnabled(True)
-            self.pushButton.setEnabled(False)
-            
-
-            
-
-     # 버튼 클릭시 실행되는 코드 
+        
+        
+    
+    # 버튼 클릭시 실행되는 코드 
     @pyqtSlot()
     def on_pushButton_released(self):
         self.setWindowTitle("사용자 등록창")
+        # 학습전 이미지 저장 단계 
+
         cam = cv2.VideoCapture(0)
         cam.set(3, 640) # set video width
         cam.set(4, 480) # set video height
@@ -104,19 +105,19 @@ class MyQtProgramming(QDialog):
         recognizer.write('trainers/trainer.yml') # recognizer.save() worked on Mac, but not on Pi
         # Print the numer of faces trained and end program
         print("\n [INFO] {0} faces trained. Exiting Program".format(len(np.unique(ids))))
+        print('사용자 등록 완료')
+                
+      
 
-        self.pushButton.setEnabled(False)
-        self.pushButton_2.setEnabled(True)
-        btncheck=1       
-        print('사용자 등록완료')
 
-    
-    
-    
-    # 문열기 버튼 누를 때 이벤트 발생
-     
+     # 문열기 버튼 누를 때 이벤트 발생 
     def on_pushButton_2_released(self):
         self.setWindowTitle("문 열기창")
+        
+
+
+            
+          
         pi = pigpio.pi() 
         recognizer = cv2.face.LBPHFaceRecognizer_create()
         recognizer.read('trainers/trainer.yml')
@@ -195,14 +196,25 @@ class MyQtProgramming(QDialog):
         # Do a bit of cleanup
         print("\n [INFO] Exiting Program and cleanup stuff")
         cam.release()
+       
+
+
+
+
         
 
+        
+        
+            
 
-       
-    
+
+        
+            
     
 
 app=QApplication(sys.argv)
 widget=MyQtProgramming()
 widget.show()
 sys.exit(app.exec_())
+
+
