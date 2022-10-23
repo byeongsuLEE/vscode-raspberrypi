@@ -39,10 +39,13 @@ class MyQtProgramming(QDialog):
         if(btn1check==1):
             self.pushButton2.setEnabled(True)
             self.pushButton1.setEnabled(False)
+            
+
      # 버튼 클릭시 실행되는 코드 
     @pyqtSlot()
     def on_pushButton1_released(self):
         self.setWindowTitle("사용자 등록창")
+
         self.pushButton1.setEnabled(False)
         self.pushButton2.setEnabled(True)
         btn1check=1
