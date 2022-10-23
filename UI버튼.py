@@ -91,7 +91,7 @@ class MyQtProgramming(QDialog):
                 img_numpy = np.array(PIL_img,'uint8')
 
                 id = int(os.path.split(imagePath)[-1].split(".")[1])
-                faces = detector.detectMultiScale(img_numpy)
+                faces = detector.detectMultiScale(imgㅁnumpy)
                 for (x,y,w,h) in faces:
                     faceSamples.append(img_numpy[y:y+h,x:x+w])
                     ids.append(id)
@@ -129,7 +129,7 @@ class MyQtProgramming(QDialog):
         openscore =0
         # names related to ids: example ==> loze: id=1,  etc
 
-        names = ['parkgiwon', 'parkgiwon', 'None','chs', 'ksw']
+        names = ['None', 'parkgiwon', 'None','None', 'None']
 
         # Initialize and start realtime video capture
         cam = cv2.VideoCapture(0)
@@ -171,7 +171,7 @@ class MyQtProgramming(QDialog):
             
             cv2.imshow('camera',img) 
             k = cv2.waitKey(10) & 0xff # Press 'ESC' for exiting video
-            if openscore >55:
+            if openscore >65:
                 #문 여는 파일
                 
                 
